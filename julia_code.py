@@ -141,6 +141,12 @@ plt.xlabel('True Values')
 plt.ylabel('Predictions')
 plt.show()
 
+lasso_coefs = lasso_mod.coef_
+importance = np.abs(lasso_coefs)
+print('Lasso Coefficients')
+print(importance)
+print('Most important features are: PE_TP and SFE_TSS')
+
 # ### SVR
 
 reg_range = np.logspace(-1,1,3)     # Regularization paramters
