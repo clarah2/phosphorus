@@ -85,6 +85,11 @@ X_train, X_test, y_train, y_test = np.array(X_train),  np.array(X_test),  np.arr
 print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 y_train = y_train.astype('int')
 
+print(len(y_train))
+
+plt.plot(range(0, len(y_train)), y_train)
+plt.show()
+
 def print_coefs(coefs, names, sort = False):
   itemList = zip(coefs, names)
   if sort:
