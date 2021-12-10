@@ -12,6 +12,7 @@ from sklearn.model_selection import KFold
 # from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 import os
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 
 ## Data Loading
@@ -85,9 +86,26 @@ X_train, X_test, y_train, y_test = np.array(X_train),  np.array(X_test),  np.arr
 print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 y_train = y_train.astype('int')
 
+# MULTICOLLINEARITY
+print('---MULTICOLLINEARITY---')
+def calculate_vif(X):
+  vif = pd.DataFrame()
+  vif["variables"] = X.columns
+  vif["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+  return(vif)
+
+X_vif_test = scaled_df.loc[:]
+vif_result = calculate_vif(X_vif_test)
+print(vif_result)
+
 print(len(y_train))
 
-plt.plot(range(0, len(y_train)), y_train)
+plt.plot(range(0, len(y_train)), y_train, c='deepskyblue')
+plt.ylim(min(y_train), max(y_train))
+plt.grid()
+plt.xlabel('Day')
+plt.ylabel('Phosphorus (kg)')
+plt.title('Daily Phosphorus Amounts')
 plt.show()
 
 def print_coefs(coefs, names, sort = False):
